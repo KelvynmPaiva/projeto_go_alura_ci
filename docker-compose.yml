@@ -1,12 +1,19 @@
 services:
+
+# Banco de Dados
+
   postgres:
     image: "postgres"
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=root
+    ports:
+      - 5432:5432
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
+      
+# Aplicação
 
   app:
     image: golang:1.22
@@ -22,7 +29,7 @@ services:
     depends_on:
       - postgres
     environment:
-      - DB_HOST=postgres
+      - DB_HOST=localhost
       - DB_USER=root
       - DB_PASSWORD=root
       - DB_NAME=root
